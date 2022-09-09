@@ -11,4 +11,10 @@ public class ExamenRepositoryImpl implements ExamenRepository {
         return Arrays.asList(new Examen(5L, "Matemáticas"), new Examen(6L, "Lenguaje"), new Examen(7L, "Historia"));
     }
 
+    @Override
+    public Examen guardar(Examen examen) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
