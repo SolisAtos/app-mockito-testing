@@ -265,4 +265,22 @@ public class ExamenServiceImplTest {
         assertEquals("Matemáticas", examen.getNombre());
     }
 
+    @Test
+    void testSpy() {
+        ExamenRepository examenRepository = spy(ExamenRepositoryNewImpl.class);
+        PreguntaRepository preguntaRepository = spy(PreguntaRepositoryImpl.class);
+        ExamenService examenService = new ExamenServiceImpl(examenRepository, preguntaRepository);
+
+        // when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
+        List<String> preguntas = Arrays.asList("aritmética");
+        doReturn(preguntas).when(preguntaRepository).findPreguntasPorExamenId(anyLong());
+
+        Examen examen = examenService.findExamenPorNombreConPreguntas("Matemáticas");
+
+        assertEquals(5, examen.getId());
+        assertEquals("Matemáticas", examen.getNombre());
+        assertEquals(1, examen.getPreguntas().size());
+        assertTrue(examen.getPreguntas().contains("aritmética"));
+    }
+
 }
